@@ -17,10 +17,10 @@ public class ShaUtils {
 	        mdTemp.update(str.getBytes("UTF-8"));
 	         
 	        byte[] md = mdTemp.digest();
-	        int j = md.length;
-	        char[] buf = new char[j * 2];
+	        int mdLength = md.length;
+	        char[] buf = new char[mdLength * 2];
 	        int k = 0;
-	        for (int i = 0; i < j; i++) {
+	        for (int i = 0; i < mdLength; i++) {
 	            byte byte0 = md[i];
 	            buf[k++] = hexDigits[byte0 >>> 4 & 0xf];
 	            buf[k++] = hexDigits[byte0 & 0xf];

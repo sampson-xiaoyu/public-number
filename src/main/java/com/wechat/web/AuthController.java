@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.thoughtworks.xstream.XStream;
 import com.wechat.bean.TextMsg;
+import com.wechat.constants.AuthConfig;
+import com.wechat.utils.ShaUtils;
 
 @Controller
 public class AuthController {
@@ -37,11 +39,12 @@ public class AuthController {
 			HttpServletRequest request,
 			HttpServletResponse reponse) {
 		if(request.getMethod().toLowerCase().equals("get")){
-			String array[] = new String[]{signature,timestamp,nonce};
+			String array[] = new String[]{AuthConfig.TOKEN,timestamp,nonce};
 			Arrays.sort(array);
-			//if(signature == ShaUtils.getSha1(StringUtils.join(array))){
-			//}
-			return echostr;
+			if(signature.equals(ShaUtils.getSha1(StringUtils.join(array)))){
+				return echostr;
+			}
+			return "fail";
 		}else{
 			
 			try {
